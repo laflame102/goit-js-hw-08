@@ -10,8 +10,11 @@ isInputEmpty();
 form.addEventListener('submit', onFormSubmit);
 form.addEventListener('input', throttle(onStorageSave, 500));
 
-function onStorageSave(evt) {
-   formData[evt.target.name] = evt.target.value;
+function onStorageSave() {
+   formData = {
+      email: form.email.value,
+      message: form.message.value,
+   }
    
    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 }
@@ -21,7 +24,7 @@ function onFormSubmit(evt) {
 
    if(!form.email.value || !form.message.value) {
       return;
-  }
+   }
    
    console.log({ email: form.email.value, message: form.message.value });
 
