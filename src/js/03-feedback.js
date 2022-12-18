@@ -18,17 +18,22 @@ function onStorageSave(evt) {
 
 function onFormSubmit(evt) {
    evt.preventDefault();
-   evt.currentTarget.reset();
 
+   if(!form.email.value || !form.message.value) {
+      return;
+  }
+   
    console.log({ email: form.email.value, message: form.message.value });
+
+   evt.currentTarget.reset();
    
    localStorage.removeItem(STORAGE_KEY);
-}
+   }
 
 function isInputEmpty() {
    const storagedMessage = JSON.parse(localStorage.getItem(STORAGE_KEY));
    if (storagedMessage) {
-      form.email.value = storagedMessage.email;
-      form.message.value = storagedMessage.message;
+      form.email.value = storagedMessage.email || '';
+      form.message.value = storagedMessage.message || '';
    }
 }

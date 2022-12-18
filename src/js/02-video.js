@@ -1,5 +1,5 @@
 import Player from '@vimeo/player';
-import throttle from 'lodash.throttle'
+import throttle from 'lodash.throttle';
 
 const iframe = document.querySelector('#vimeo-player');
 const player = new Player(iframe);
@@ -11,13 +11,14 @@ function onPlay(data) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
 
-player.setCurrentTime(JSON.parse(localStorage.getItem(STORAGE_KEY)).seconds).then(function(seconds) {
-
-}).catch(function(error) {
-    switch (error.name) {
-        case 'RangeError':
-            break;
-        default:
-            break;
-    }
-});
+if (localStorage.length !== 0) {
+    player.setCurrentTime(JSON.parse(localStorage.getItem(STORAGE_KEY)).seconds)
+    .catch(function (error) {
+        switch (error.name) {
+            case 'RangeError':
+                break;
+            default:
+                break;
+        }
+    });
+} 
